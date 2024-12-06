@@ -30,13 +30,16 @@
           "sample_value": "tmb_range_to_query"
         },
         "HER2_STATUS": {
-          "ignore": true
+          "sample_key": "HER2_STATUS",
+          "sample_value": "nomap"
         },
         "PR_STATUS": {
-          "ignore": true
+          "sample_key": "PR_STATUS",
+          "sample_value": "nomap"
         },
         "ER_STATUS": {
-          "ignore": true
+          "sample_key": "ER_STATUS",
+          "sample_value": "nomap"
         },
         "DISEASE_STATUS": {
           "ignore": true
@@ -169,7 +172,10 @@
       "MRN",
       "ONCOTREE_PRIMARY_DIAGNOSIS_NAME",
       "TUMOR_MUTATIONAL_BURDEN_PER_MEGABASE",
-      "VITAL_STATUS"
+      "VITAL_STATUS",
+      "HER2_STATUS",
+      "PR_STATUS",
+      "ER_STATUS"
     ],
     "trial": [
       "protocol_no",
@@ -284,7 +290,10 @@
       "ONCOTREE_PRIMARY_DIAGNOSIS_NAME",
       "TUMOR_MUTATIONAL_BURDEN_PER_MEGABASE",
       "VITAL_STATUS",
-      "BIRTH_DATE_INT"
+      "BIRTH_DATE_INT",
+      "HER2_STATUS",
+      "PR_STATUS",
+      "ER_STATUS"
     ],
     "trial_match": [
       "hash",

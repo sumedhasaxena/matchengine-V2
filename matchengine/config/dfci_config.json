@@ -41,6 +41,10 @@
           "sample_key": "ER_STATUS",
           "sample_value": "nomap"
         },
+        "PDL1_STATUS":{
+          "sample_key": "PDL1_STATUS",
+          "sample_value": "nomap"
+        },
         "DISEASE_STATUS": {
           "ignore": true
         }
@@ -175,7 +179,8 @@
       "VITAL_STATUS",
       "HER2_STATUS",
       "PR_STATUS",
-      "ER_STATUS"
+      "ER_STATUS",
+      "PDL1_STATUS"
     ],
     "trial": [
       "protocol_no",

@@ -46,7 +46,8 @@
           "sample_value": "nomap"
         },
         "DISEASE_STATUS": {
-          "ignore": true
+          "sample_key": "DISEASE_STATUS",
+          "sample_value": "nomap"
         }
       }
     },

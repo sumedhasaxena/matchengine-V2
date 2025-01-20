@@ -44,6 +44,9 @@
         "PDL1_STATUS":{
           "sample_key": "PDL1_STATUS",
           "sample_value": "nomap"
+        },        
+        "DISEASE_STATUS": {
+          "ignore": true
         }
       }
     },

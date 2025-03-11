@@ -4,9 +4,8 @@ import csv
 import os
 from collections import defaultdict
 
-ONCOTREE_TXT_FILE_PATH = "C:\HKU\Matchminer\oncotree_file.txt"
-#os.getenv("ONCOTREE_TXT_FILE_PATH", None)
-#console.log(ONCOTREE_TXT_FILE_PATH)
+ONCOTREE_TXT_FILE_PATH = os.getenv("ONCOTREE_TXT_FILE_PATH", None)
+
 with open(ONCOTREE_TXT_FILE_PATH) as f:
     r = csv.DictReader(f, delimiter='\t')
     rows = [row for row in r]
@@ -31,9 +30,9 @@ del mapping['']
 for s in mapping.values():
     if '' in s:
         s.remove('')
-mapping['_LIQUID_'] = mapping['Lymph'] | mapping['Blood']
+mapping['_LIQUID_'] = mapping['Myeloid'] | mapping['Lymphoid']
 for k in list(mapping.keys()):
-    if k not in mapping['_LIQUID_']:
+    if k != '_LIQUID_' and k not in mapping['_LIQUID_']:
         mapping['_SOLID_'].add(k)
 
 for k in mapping.keys():#

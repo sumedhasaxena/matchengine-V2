@@ -311,8 +311,13 @@
     ]
   },
   "valid_clinical_reasons": [
-    [
-      "TUMOR_MUTATIONAL_BURDEN_PER_MEGABASE"
-    ]
+    "BIRTH_DATE_INT",
+    "ONCOTREE_PRIMARY_DIAGNOSIS_NAME",
+    "GENDER",
+    "TUMOR_MUTATIONAL_BURDEN_PER_MEGABASE",
+    "HER2_STATUS",
+    "PR_STATUS",
+    "ER_STATUS",
+    "PDL1_STATUS"
   ]
 }

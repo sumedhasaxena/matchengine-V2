@@ -509,6 +509,8 @@ class MatchEngine(object):
             # for each match path, translate the path into valid mongo queries
             for match_path in match_paths:
                 query = translate_match_path(self, match_clause, match_path)
+                self._log_query(protocol_no, query)
+
                 for criteria_node in match_path.criteria_list:
                     for criteria in criteria_node.criteria:
                         # check if node has any age criteria, to know to check for newly qualifying patients
@@ -516,8 +518,8 @@ class MatchEngine(object):
                         for k, v in criteria.get('clinical', dict()).items():
                             if k.lower() == 'age_numerical':
                                 age_criteria.add(v)
-                if self.debug:
-                    log.info(f"Query: {query}")
+                
+                
                 # put the query onto the task queue for execution
                 tasks.append((trial, match_clause, match_path, query))
 
@@ -539,6 +541,16 @@ class MatchEngine(object):
         logging.info(
             f"Total {self.trial_match_collection} documents: {sum([len(matches) for matches in self._matches.get(protocol_no, dict()).values()])}")
         return self._matches.get(protocol_no, dict())
+
+    def _log_query(self, protocol_no: str, query: MultiCollectionQuery):
+        if query.clinical:
+            for qnc in query.clinical:
+                for qn in qnc.query_nodes:
+                    log.info(f"Protocol number: {protocol_no} | Clinical raw query: {qn.extract_raw_query()}")
+        if query.extended_attributes:
+            for qnc in query.extended_attributes:
+                for qn in qnc.query_nodes:
+                    log.info(f"Protocol number: {protocol_no} | Extended raw query: {qn.extract_raw_query()}")
 
     def _populate_run_log_history(self) -> Dict[str, List[Dict]]:
         """
@@ -721,7 +733,7 @@ class MatchEngine(object):
         if not run_log_entries or (self.match_on_closed and not run_log_entries[0]['run_params']['match_on_closed']):
             self._clinical_ids_for_protocol_cache[protocol_no] = self.clinical_ids
             return self._clinical_ids_for_protocol_cache[protocol_no]
-
+        
         clinical_ids_to_not_run = set()
         clinical_ids_to_run = set()
 

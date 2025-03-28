@@ -87,11 +87,8 @@ class MatchCriteriaTransform(object):
         self.trial_identifier = config.get('trial_identifier', 'protocol_no')
         self.match_trial_link_id = config.get('match_trial_link_id', self.trial_identifier)
         self.transform = TransformFunctions()
-        self.valid_clinical_reasons = {
-            frozenset(reasons)
-            for reasons in
-            self.config.get("valid_clinical_reasons", list())
-        }
+        self.valid_clinical_reasons = frozenset(self.config.get("valid_clinical_reasons", list()))
+
         # By default, only trials that are "Open to Accrual" are run.
         # This value by default is stored inside a "_summary" object.
         # If a different field indicates trial accrual status, that is set here.

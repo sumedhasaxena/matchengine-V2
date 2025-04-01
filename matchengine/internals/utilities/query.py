@@ -277,5 +277,5 @@ def get_valid_reasons(matchengine: MatchEngine, possible_reasons, clinical_ids, 
                 if match:
                     list_o_reasons.append(reason)
                 valid_reasons[clinical_id] = list_o_reasons
-
+    log.info(f"Length of valid reasons: {len(valid_reasons)}")
     return valid_reasons

@@ -480,6 +480,7 @@ class MatchEngine(object):
                                                                                                         set())
                 continue
             self.get_matches_for_trial(protocol_no)
+            
         return self._matches
 
     def get_matches_for_trial(self, protocol_no: str):
@@ -537,8 +538,11 @@ class MatchEngine(object):
         if not self._task_q.qsize():
             self._matches[protocol_no] = dict()
         await self._task_q.join()
-        logging.info(f"Total patient matches: {len(self._matches.get(protocol_no, dict()))}")
-        logging.info(
+        log.info(f"Total patient matches: {len(self._matches.get(protocol_no, dict()))}")
+        log.info(f"Clinical Id matches for protocol number: {protocol_no}--")
+        for matches in self._matches.get(protocol_no, dict()).values():
+            log.info(f"--{matches[0]["clinical_id"]}")
+        log.info(
             f"Total {self.trial_match_collection} documents: {sum([len(matches) for matches in self._matches.get(protocol_no, dict()).values()])}")
         return self._matches.get(protocol_no, dict())
 

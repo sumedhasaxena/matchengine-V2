@@ -164,14 +164,14 @@ async def run_query_task(matchengine: MatchEngine, task, worker_id):
 
 async def run_poison_pill(matchengine: MatchEngine, task, worker_id):
     if matchengine.debug:
-        log.info(f"Worker: {worker_id} got PoisonPill")
+        log.debug(f"Worker: {worker_id} got PoisonPill")
     matchengine.task_q.task_done()
 
 
 async def run_update_task(matchengine: MatchEngine, task: UpdateTask, worker_id):
     try:
         if matchengine.debug:
-            log.info(f"Worker {worker_id} got new UpdateTask {task.protocol_no}")
+            log.debug(f"Worker {worker_id} got new UpdateTask {task.protocol_no}")
         tasks = [
             matchengine.async_db_rw[matchengine.trial_match_collection].bulk_write(chunked_ops,
                                                                                    ordered=False)

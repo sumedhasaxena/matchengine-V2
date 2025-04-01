@@ -541,7 +541,7 @@ class MatchEngine(object):
         log.info(f"Total patient matches: {len(self._matches.get(protocol_no, dict()))}")
         log.info(f"Clinical Id matches for protocol number: {protocol_no}--")
         for matches in self._matches.get(protocol_no, dict()).values():
-            log.info(f"--{matches[0]["clinical_id"]}")
+            log.info(f"--{matches[0]}")
         log.info(
             f"Total {self.trial_match_collection} documents: {sum([len(matches) for matches in self._matches.get(protocol_no, dict()).values()])}")
         return self._matches.get(protocol_no, dict())

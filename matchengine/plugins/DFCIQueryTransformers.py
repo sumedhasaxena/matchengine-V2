@@ -62,7 +62,7 @@ class DFCIQueryTransformers(QueryTransformerContainer):
         sample_key = kwargs['sample_key']
         variant_category_map = {
             "Copy Number Variation".lower(): "CNV",
-            "Any Variation".lower(): {"$in": ["MUTATION", "CNV"]},
+            "Any Variation".lower(): {"$in": ["MUTATION", "CNV", "SV"]},
             "Structural Variation".lower(): "SV"
         }
 

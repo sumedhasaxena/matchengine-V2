@@ -15,8 +15,13 @@ import urllib.request
 
 API_URL = "https://oncotree.mskcc.org/api/tumorTypes?version={version}"
 DEFAULT_VERSION = "oncotree_latest_stable"
-DEFAULT_MAX_LEVELS = 7
 METADATA_COLUMNS = ["metamaintype", "metacolor", "metanci", "metaumls", "history"]
+
+
+def max_tree_depth(nodes: list[dict]) -> int:
+    if not nodes:
+        raise SystemExit("OncoTree API returned no tumor types")
+    return max(node.get("level", 0) for node in nodes)
 
 
 def fetch_tumor_types(version: str) -> list[dict]:
@@ -63,8 +68,10 @@ def node_to_row(node: dict, by_code: dict[str, dict], max_levels: int) -> list[s
 def write_oncotree_tsv(
     nodes: list[dict],
     output,
-    max_levels: int = DEFAULT_MAX_LEVELS,
+    max_levels: int | None = None,
 ) -> None:
+    if max_levels is None:
+        max_levels = max_tree_depth(nodes)
     by_code = {node["code"]: node for node in nodes}
     header = [f"level_{i}" for i in range(1, max_levels + 1)] + METADATA_COLUMNS
     writer = csv.writer(output, delimiter="\t", lineterminator="\n")
@@ -92,8 +99,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--max-levels",
         type=int,
-        default=DEFAULT_MAX_LEVELS,
-        help=f"Number of level_N columns (default: {DEFAULT_MAX_LEVELS})",
+        default=None,
+        help="Number of level_N columns (default: max depth in API response)",
     )
     return parser.parse_args()
 
